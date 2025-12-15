@@ -4,7 +4,7 @@ services:
     container_name: viewtracker-redis
     command: >
       redis-server
-      --requirepass ${PASS}
+      --requirepass "${PASS}"
       --appendonly yes
     volumes:
       - redis-data:/data
