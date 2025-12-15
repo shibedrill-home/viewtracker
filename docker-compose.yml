@@ -3,7 +3,11 @@ services:
     image: redis:7-alpine
     container_name: viewtracker-redis
     command: >
-      redis-server --requirepass ${PASS}
+      redis-server
+      --requirepass ${PASS}
+      --appendonly yes
+    volumes:
+      - redis-data:/data
     restart: unless-stopped
 
   viewtracker:
@@ -19,3 +23,6 @@ services:
     ports:
       - "6969:6969"
     restart: unless-stopped
+
+volumes:
+  redis-data:
