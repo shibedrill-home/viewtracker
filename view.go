@@ -7,6 +7,7 @@ import (
 
 func get_view(c *gin.Context) {
 	articleId := c.Param("id")
+	c.Header("Access-Control-Allow-Origin", "*")
 
 	// Fetch the value (will be 0 if not exist)
 	views, err := rdb.Get(ctx, articleId).Int()
