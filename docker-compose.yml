@@ -1,0 +1,21 @@
+services:
+  redis:
+    image: redis:7-alpine
+    container_name: viewtracker-redis
+    command: >
+      redis-server --requirepass ${PASS}
+    restart: unless-stopped
+
+  viewtracker:
+    image: ghcr.io/shibedrill-home/viewtracker:latest
+    container_name: viewtracker-app
+    depends_on:
+      - redis
+    environment:
+      PASS: ${PASS}
+      ADDR: viewtracker-redis:6379
+      PORT: 6969
+      GIN_MODE: release
+    ports:
+      - "6969:6969"
+    restart: unless-stopped
